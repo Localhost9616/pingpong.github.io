@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Pong</title>
+    <link rel="icon" type="image/png" href="https://img-premium.flaticon.com/png/128/1021/premium/1021846.png?token=exp=1630667384~hmac=529206a4c7dd4f9c027e7ee5b44a4e3d" sizes="16x16">
+    
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+
+        .bullet {
+            margin-right: 20px;
+            margin-left: 10px;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 7px;
+        }
+
+        li {
+            list-style: none;
+            font-size: 35px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        ul {
+            width: 400px;
+        }
+
+        
+        .difficultybg {
+            background-image: url("https://news.blr.com/app/uploads/sites/3/2019/08/PingPong-768x512.jpg");
+            height: 100vh;
+            width: 80vw;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            /* filter: blur(2px); */
+        }
+        
+        .difficultymenu {
+            position: absolute;
+            top: 200px;
+            width: 300px;
+        }
+
+        .bgcontainer2 {
+            display: flex;
+            justify-content: center;
+            align-self: center;
+        }
+        .gamemenu {
+            width: 150px;
+        }
+
+        #gamemenu2 {
+            width: 200px;
+        }
+
+        #gamemenu3 {
+            width: 150px;
+        }
+        #gamemenu4 {
+            width: 250px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="bgcontainer2">
+        <div class="difficultybg">
+            <div class="difficultymenu">
+                <ul>
+                    <li><img class="bullet" src="images/custom-bullet-points-in-word-585999.png" alt="" srcset=""><a href="/homepage.html"><img onclick="easy()"
+                            class="gamemenu" id="gamemenu1" src="images/coollogo_com-7329380.png" alt="" srcset=""></a></li>
+                    <li><img class="bullet" src="images/custom-bullet-points-in-word-585999.png" alt="" srcset=""><a href="/homepage.html"><img onclick="medium()"
+                            class="gamemenu" id="gamemenu2" src="images/coollogo_com-268391391.png" alt="" srcset=""></a></li>
+                    <li><img class="bullet" src="images/custom-bullet-points-in-word-585999.png" alt="" srcset=""><a href="/homepage.html"><img onclick="hard()"
+                            class="gamemenu" id="gamemenu3" src="images/coollogo_com-24217482.png" alt="" srcset=""></a></li>
+                    <li><img class="bullet" src="images/custom-bullet-points-in-word-585999.png" alt="" srcset=""><a href="/homepage.html"><img
+                        onclick="extreme()"
+                            class="gamemenu" id="gamemenu4" src="images/coollogo_com-29816488.png" alt="" srcset=""></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="./index.js" type='text/javascript'></script>
+    <script src="/difficulty.js"></script> -->
+    
+    <script>
+        
+        // ballspeed=8;
+        // console.log(ballspeed)
+
+        const easy=()=>{
+            var speed=2;
+            localStorage.setItem("myvalue", speed);
+            window.location.href="/index.html";
+        }
+        const medium=()=>{
+            var speed=5;
+            localStorage.setItem("myvalue", speed);
+            window.location.href="/index.html";
+        }
+        const hard=()=>{
+            var speed=8;
+            localStorage.setItem("myvalue", speed);
+            window.location.href="/index.html";
+        }
+        const extreme=()=>{
+            var speed=11;
+            localStorage.setItem("myvalue", speed);
+            window.location.href="/index.html";
+        }
+    </script>
+</body>
+
+</html>

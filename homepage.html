@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ping Pong</title>
     <link rel="icon" type="image/png" href="https://img-premium.flaticon.com/png/128/1021/premium/1021846.png?token=exp=1630667384~hmac=529206a4c7dd4f9c027e7ee5b44a4e3d" sizes="16x16">
-    <!-- <script type="text/javascript" src="computer.js"></script> -->
     <style>
         * {
             margin: 0;
@@ -15,110 +14,613 @@
             box-sizing: border-box;
         }
 
-        .bg {
-            background-image: url("https://news.blr.com/app/uploads/sites/3/2019/08/PingPong-768x512.jpg");
-            height: 100vh;
-            width: 80vw;
-            background-repeat: no-repeat;
+        @font-face {
+            font-family: digital;
+            src: url("font/digital-7\ \(italic\).ttf");
+        }
+
+        @font-face {
+            font-family: digital2;
+            src: url("font/digital-7.ttf");
+        }
+
+        .background {
+            background-image: url("images/backgroung.jpg");
             background-size: cover;
             background-position: center;
-            position: relative;
-            /* filter: blur(2px); */
-        }
-
-        .bgcontainer {
-
+            height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
-            align-self: center;
+            align-items: center;
+            /* visibility: hidden; */
         }
 
-        .maindiv {
-            height: 500px;
-            width: 400px;
+        .board {
+            height: 86vh;
+            width: 90vw;
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("https://tableclothhire.ch/wp-content/uploads/2020/02/4-Stretch-Navy-Blue.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+
+        }
+
+        .ball {
+            height: 20px;
+            width: 20px;
+            background: url("images/backgroung.jpg");
+            border-radius: 50%;
+            position: fixed;
+            top: 300px;
+            left: 500px;
+            /* border: 2px solid black;       */
+        }
+
+        .leftpaddle {
+            height: 80px;
+            width: 8px;
+            background: url("images/backgroung.jpg");
+            position: fixed;
+            top: 200px;
+            left: 75px;
+        }
+
+        .rightpaddle {
+            height: 80px;
+            width: 8px;
+            background: url("images/backgroung.jpg");
+            position: fixed;
+            top: 200px;
+            right: 75px;
+        }
+
+        .life {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background-color: rgb(255 218 0) ;
+            margin: 4px;
+        }
+
+        .leftplayerlife {
+            display: flex;
+            justify-content: center;
+        }
+
+        .rightplayerlife {
+            display: flex;
+            justify-content: center;
+        }
+
+        .playerlife {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: flex-start;
+            width: 60vw;
+            height: 70vh;
+        }
+
+        .modalcontainer {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            z-index: 3;
+        }
+
+        .line {
+            width: 4px;
             /* border: 2px solid black; */
+            height: 86vh;
+            position: fixed;
+            border-left: 2px dashed #0d8675;
+            /* top: 200px; */
+        }
+
+        .score {
+            width: 90vw;
+            display: flex;
+            justify-content: space-around;
+            /* border: 2px solid black; */
+            height: 20vh;
+            position: fixed;
+            /* border: 2px dashed black; */
+            /* top: 200px; */
+        }
+
+        .leftscore {
+            width: 10vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+            height: 20vh;
+            /* position: fixed; */
+            /* border: 2px dashed black; */
+            color: aqua;
+            font-family: digital;
+        }
+
+        .rightscore {
+            width: 10vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20vh;
+            font-size: 100px;
+            /* border: 2px dashed black; */
+            font-family: digital;
+            color: aqua;
+        }
+
+        .modalbox {
+            width: 500px;
+            height: 300px;
+            background-color: seashell;
+            background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700422093.jpg");
+            color: azure;
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+        }
+
+        .textbox {
+            height: 75%;
+            width: 100%;
+            position: relative;
+        }
+
+        .buttonbox {
+            height: 25%;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        h1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px;
+            padding: 17px;
+            color: cyan;
+        }
+
+        p {
+            font-size: 18px;
+            padding-left: 30px;
+            padding-bottom: 15px;
+            color: greenyellow;
+        }
+
+        .p3 {
+            margin-top: 20px;
+        }
+
+        .replay {
+            padding: 10px;
+            color: gold;
+        }
+
+        .mainmenu {
+            padding: 10px;
+
+        }
+
+        button {
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjx9VbtE7LL2cWTV-zSXNL-rZ-70PjRlizCw&usqp=CAU");
+            background-position: center;
+            color: azure;
+        }
+
+        .close {
+            width: 10px;
+            height: 10px;
             position: absolute;
-            top: 70px;
-            left: 100px;
+            right: 30px;
+            top: 10px;
+            font-size: 25px;
+            cursor: pointer;
         }
 
-        .img1 {
-            width: 400px;
-        }
-
-        li {
-            list-style: none;
-            font-size: 35px;
-            margin-top: 10px;
-        }
-
-        ul {
-            width: 400px;
-        }
-
-        .menu {
-            position: absolute;
-            top: 160px;
-            width: 300px;
-        }
-
-        .gamemenu {
-            width: 300px;
-        }
-
-        #gamemenu2 {
-            width: 200px;
-        }
-
-        #gamemenu3 {
-            width: 200px;
-        }
-
-        .bullet {
-            margin-right: 20px;
-            margin-left: 10px;
-            width: 60px;
-            height: 60px;
+        a {
+            text-decoration: none;
+            height: 100%;
+            width: 100%;
+            color: gold;
         }
     </style>
+
+    <!-- <script src="computer.html"></script> -->
 </head>
 
 <body>
-    <div class="bgcontainer">
-        <div class="bg">
-            <div class="maindiv">
-                <div class="name">
-                    <img class="img1" src="images/coollogo_com-223082416.png" alt="" srcset="">
+    <div class="modalcontainer" id="Modalcontainer">
+        <div class="modalbox">
+            <div class="textbox">
+                <div class="close">&times;</div>
+                <h1>Congratulation</h1>
+                <p>Player 1 won the game</p>
+                <p>Score = x</p>
+                <p class="p3">Hit Enter Key to play again</p>
+            </div>
+            <div class="buttonbox">
+                <button class="replay">replay</button>
+                <button class="mainmenu"><a href="index.html">mainmenu</a></button>
+            </div>
+        </div>
+    </div>
+    <div class="background">
+        <div class="board" id="board1">
+            <div class="ball"></div>
+            <div class="line"></div>
+            <div class="score">
+                <div class="leftscore">78</div>
+                <div class="rightscore">78</div>
+            </div>
+            <div class="leftpaddle" id="leftpaddle1"></div>
+            <div class="rightpaddle" id="rightpaddle1"></div>
+            <div class="playerlife">
+                <div class="leftplayerlife">
+                    <div class="life1 life " id="life-1"></div>
+                    <div class="life2 life " id="life-2"></div>
+                    <div class="life3 life " id="life-3"></div>
                 </div>
-                <div class="menu">
-                    <ul>
-                        <li><img class="bullet" src="images/custom-bullet-points-in-word-585999.png" alt=""
-                                srcset=""><a href="index.html"><img class="gamemenu" id="gamemenu1" src="images/coollogo_com-20291792.png"
-                                alt="" srcset=""></a></li>
-                        <li><img class="bullet" src="images/custom-bullet-points-in-word-585999.png" alt=""
-                                srcset=""><a href="/computer.html"><img class="gamemenu" id="gamemenu4" src="images/coollogo_com-10711405.png"
-                                alt="" srcset=""></a></li>
-                        <li><img class="bullet" src="images/custom-bullet-points-in-word-585999.png" alt=""
-                                srcset=""><a href="/controls.html"><img class="gamemenu" id="gamemenu2"
-                                src="images/coollogo_com-20596752.png" alt="" srcset=""></a></li>
-                        <li><img class="bullet" src="images/custom-bullet-points-in-word-585999.png" alt=""
-                                srcset=""><a href="/difficulty.html"><img class="gamemenu" id="gamemenu3" src="images/coollogo_com-20290266.png"
-                                alt="" srcset=""></a></li>
-                    </ul>
+                <div class="rightplayerlife">
+                    <div class="life4 life " id="life-4"></div>
+                    <div class="life5 life " id="life-5"></div>
+                    <div class="life6 life " id="life-6"></div>
                 </div>
             </div>
         </div>
     </div>
-    
     <script>
-        // const opencomputer = () => {
-        //     // window.open("")
-        //     console.log("running")
-        //     window.computer();
-            
-        // }
-    </script>
+        let x = true;
+        let y = true;
+        let countright = 6;
+        let countleft = 3;
+        var d = localStorage.getItem("myvalue");
+        let ballspeed = parseInt(d);
+        let leftpoints = 0;
+        let rightpoints = 0;
+        var visited = false;
+        let ball = document.querySelector(".ball");
+        ball.style.top = Math.floor(Math.random() * (540 - 70) + 70) + "px";
 
+        const moveball = () => {
+            let ball = document.querySelector(".ball");
+            let balltop = ball.getBoundingClientRect().top;
+            let ballleft = ball.getBoundingClientRect().left;
+            let ballbottom = ball.getBoundingClientRect().bottom;
+            let ballright = ball.getBoundingClientRect().right;
+
+            let boardbottom = document.querySelector(".board").getBoundingClientRect().bottom;
+            let boardleft = document.querySelector(".board").getBoundingClientRect().left;
+            let boardright = document.querySelector(".board").getBoundingClientRect().right;
+            let boardtop = document.querySelector(".board").getBoundingClientRect().top;
+
+            let leftscore = document.querySelector(".leftscore").innerHTML = leftpoints;
+            let rightscore = document.querySelector(".rightscore").innerHTML = rightpoints;
+            let leftpaddle = document.getElementById("leftpaddle1").getBoundingClientRect();
+            let rightpaddle = document.getElementById("rightpaddle1").getBoundingClientRect();
+            // console.log(ball.getBoundingClientRect());
+            // console.log(balltop);
+            // ball.style.top = balltop + 1 + "px";
+            // ball.style.left = ballleft + 1 + "px";
+
+
+            if (ballbottom >= boardbottom) {
+                y = !y;
+            }
+
+            else if (ballleft <= leftpaddle.right && ballbottom >= leftpaddle.top && balltop <= leftpaddle.bottom && ballleft <= leftpaddle.left && ball.offsetLeft < 600 && visited == true) {
+                visited = false;
+                x = !x
+                leftpoints += 10;
+            }
+            // else if (ballbottom > rightpaddle.top && ballright >= boardright && (ballleft < rightpaddle.right || rightpaddle.left) && balltop < rightpaddle.bottom && ball.offsetLeft > 600 && visited == false) {
+            //     visited=true;
+            //     rightpoints++;
+            //     x = !x;
+            // }
+            // else if (ballright >= rightpaddle.left && balltop >= rightpaddle.top && balltop <= rightpaddle.bottom && ballright <= rightpaddle.right && ball.offsetLeft > 600 && visited == false) {
+            //     visited=true;
+            //     x = !x;
+            //     // rightpoints++;
+            //     console.log("rightpoints");
+            // }
+
+            else if (ballright >= boardright && visited == false) {
+                visited = true;
+                x = !x;
+                document.getElementById(`life-${countright--}`).style.visibility = "hidden"
+
+                if (countright == 3) {
+                    // alert("Player 1 is Winner");
+                    ballspeed = 0;
+                    modalcontainer.style.visibility = "visible";
+                    document.addEventListener("keydown", (e) => {
+                        if (e.key == `Enter`) {
+                            location.reload();
+                            // balltop = Math.floor(Math.random() * (boardbottom - boardtop) + boardtop);
+                        }
+                    })
+                }
+            }
+
+            else if (balltop <= boardtop) {
+                y = !y;
+
+            }
+            else if (ballleft <= boardleft && visited == true) {
+                visited = false;
+                x = !x;
+                document.getElementById(`life-${countleft--}`).style.visibility = "hidden"
+                if (countleft == 0) {
+                    // alert("Player 2 is Winner");
+                    ballspeed = 0;
+                    modalcontainer.style.visibility = "visible";
+                    document.addEventListener("keydown", (e) => {
+                        if (e.key == `Enter`) {
+                            location.reload();
+                            // balltop = Math.floor(Math.random() * (boardbottom - boardtop) + boardtop);
+                        }
+                    })
+                    // location.reload();
+                }
+
+            }
+            if (ballright >= rightpaddle.left && ballright <= rightpaddle.left + ballspeed + 2 && ballbottom > rightpaddle.top && balltop < rightpaddle.bottom && ball.offsetLeft > 600 && visited == false) {
+                visited = true;
+                x = !x;
+                rightpoints += 10;
+            }
+
+
+            if (x == true) {
+                ball.style.left = ballleft + ballspeed + "px";
+            }
+            if (x == false) {
+                ball.style.left = ballleft - ballspeed + "px";
+            }
+            if (y == true) {
+                ball.style.top = balltop + ballspeed + "px";
+            }
+            if (y == false) {
+                ball.style.top = balltop - ballspeed + "px";
+            }
+            requestAnimationFrame(moveball);
+        }
+        requestAnimationFrame(moveball);
+
+        // const movepaddledown=()=>{
+        //     let paddle=document.getElementById("leftpaddle1");
+        //     let leftpaddletop=document.getElementById("leftpaddle1").getBoundingClientRect().top;
+        //     let leftpaddlebottom=document.getElementById("leftpaddle1").getBoundingClientRect().bottom;
+        //     let boardbottom = document.querySelector(".board").getBoundingClientRect().bottom;
+        //     if (leftpaddlebottom+10 < boardbottom){
+        //         paddle.style.top =leftpaddletop + 10 +`px`;
+        //     }
+        // }
+        // const movepaddleup=()=>{
+        //     let paddle=document.getElementById("leftpaddle1");
+        //     let leftpaddletop=document.getElementById("leftpaddle1").getBoundingClientRect().top;
+        //     let leftpaddlebottom=document.getElementById("leftpaddle1").getBoundingClientRect().bottom;
+        //     let boardtop = document.querySelector(".board").getBoundingClientRect().top;
+        //     if (leftpaddletop-10 > boardtop){
+        //         paddle.style.top =leftpaddletop - 10 +`px`;
+        //     }
+        // }
+        const movepaddleup = (id) => {
+            let paddle = document.getElementById(`${id}paddle1`);
+            let leftpaddletop = document.getElementById(`${id}paddle1`).getBoundingClientRect().top;
+            let leftpaddlebottom = document.getElementById(`${id}paddle1`).getBoundingClientRect().bottom;
+            let boardtop = document.querySelector(".board").getBoundingClientRect().top;
+            if (leftpaddletop - 10 > boardtop) {
+                paddle.style.top = leftpaddletop - 10 + `px`;
+            }
+        }
+        const movepaddledown = (id) => {
+            let paddle = document.getElementById(`${id}paddle1`);
+            let leftpaddletop = document.getElementById(`${id}paddle1`).getBoundingClientRect().top;
+            let leftpaddlebottom = document.getElementById(`${id}paddle1`).getBoundingClientRect().bottom;
+            let boardbottom = document.querySelector(".board").getBoundingClientRect().bottom;
+            if (leftpaddlebottom + 10 < boardbottom) {
+                paddle.style.top = leftpaddletop + 10 + `px`;
+            }
+        }
+
+
+        const moveleftpaddle = (e) => {
+            if (e.key == `w`) {
+                movepaddleup("left");
+            }
+            if (e.key == `s`) {
+                movepaddledown("left");
+            }
+            if (e.key == `ArrowDown`) {
+                movepaddledown("right");
+            }
+            if (e.key == `ArrowUp`) {
+                movepaddleup("right");
+            }
+            // console.log(e)
+        }
+        let isdown = false;
+
+        document.addEventListener("keydown", moveleftpaddle);
+
+        // const move=(e)=>{
+        //     console.log(e);
+        // }
+        // document.addEventListener("mousedown", ()=>{
+        //     isdown=true;
+        //     console.log("its dowm1");
+        //     document.addEventListener("mousemove", ()=>{
+        //     if(isdown){
+        //         console.log("its dowm3");
+        //     }
+        // });
+        // });
+        // document.addEventListener("mouseup", ()=>{
+        //     isdown=false;
+        // });
+        // document.addEventListener("mouseleave", ()=>{
+        //     isdown=false;
+        // });
+        // function myFunction(e) {
+        //     var y = e.clientY;
+        //     var coor = "Coordinates: (" + y + ")";
+        //     
+        // }
+        // document.getElementById("board1").addEventListener("mousedown", function (event) {
+        //     myFunction(event);
+        // });
+        // document.getElementById("rightpaddle1").addEventListener("mousedown", mouseDown);
+        // document.getElementById("rightpaddle1").addEventListener("mouseup", mouseUp);
+
+        // function mouseDown(e) {
+        //     console.log("clickeddown")
+        //     var y = e.clientY;
+        //     console.log(y);
+        // }
+
+        // function mouseUp() {
+        //     console.log("clickedup")
+        // }
+
+
+
+
+        var cx = 600;
+        var cy = 600;
+        // console.log(x, y);
+        window.document.addEventListener("mousemove", (e) => {
+            let nx = e.clientX;
+            let ny = e.clientY;
+            if (cx > 680 && cy < ny) {
+                movepaddledown("right");
+            }
+            if (cx > 680 && cy > ny) {
+                movepaddleup("right");
+            }
+            if (cx < 680 && cy < ny) {
+                movepaddledown("left");
+            }
+            if (cx < 680 && cy > ny) {
+                movepaddleup("left");
+            }
+            cx = nx;
+            cy = ny;
+        })
+        window.document.addEventListener("mouseup", () => {
+            console.log("errorrup")
+        })
+        let a = true;
+        let b = true;
+        const computer = () => {
+            let balltop = ball.getBoundingClientRect().top;
+            let ballbottom = ball.getBoundingClientRect().bottom;
+            let paddle = document.getElementById("leftpaddle1");
+            let leftpaddle = document.getElementById("leftpaddle1").getBoundingClientRect();
+            let boardbottom = document.querySelector(".board").getBoundingClientRect().bottom;
+            let boardtop = document.querySelector(".board").getBoundingClientRect().top;
+
+            // const down=()=>{
+            //     var element = document.getElementById("leftpaddle1");
+
+            //         element.classList.remove("leftpaddle");
+            //         element.classList.add("leftpaddle2");
+            //         paddle.style.bottom = boardbottom-balltop-20 + "px";
+            //         console.log(a);
+            // }
+            // const up=()=>{
+            //     paddle.style.top = balltop + "px" ;
+            // }
+            // if(leftpaddle.bottom<boardbottom){
+
+
+            //     paddle.style.top = balltop + "px" ;
+            // if (leftpaddle.bottom >= boardbottom) {
+            //     a=false;
+            // } 
+            // if (leftpaddle.top <= boardtop) {
+            //     a=true
+            // } 
+            // console.log(a)
+            // if(a==true){
+            //     paddle.style.top = balltop + "px";
+            //     console.log(a);
+            // }else{
+            // down();
+            // }
+            // }else{
+            // paddle.style.bottom = balltop + "px" ;
+            // }
+            // if (a==true) {
+            // paddle.style.top = balltop + "px";
+            // } else {
+
+            //     var element = document.getElementById("leftpaddle1");
+
+            //     element.classList.remove("leftpaddle");
+            //     element.classList.add("leftpaddle2");
+            //     paddle.style.bottom = boardbottom-balltop+20 + "px";
+            // }
+
+
+
+            // if(leftpaddle.bottom<=boardbottom && ballbottom>boardbottom){
+            // let s = document.getElementById("leftpaddle1").style;
+            // console.log(s);
+            //     paddle.style.top = leftpaddle.top+30 + "px" ;
+            // }
+            // else{
+            //     paddle.style.bottom = balltop + "px" ;
+            // }
+            // paddle.style.bottom= balltop + "px";
+            // console.log(leftpaddle);
+            if (ballbottom > boardbottom - 30 || balltop - 30 < boardtop) {
+                console.log("wait");
+            } else {
+                paddle.style.top = balltop - 30 + "px";
+            }
+
+            requestAnimationFrame(computer)
+        }
+        // computer();
+
+        // document.getElementById("leftpaddle1").addEventListener("eclick", moveleftpaddle);
+
+        // document.getElementById("rightpaddle1").scrollIntoView();
+        let modalcontainer = document.getElementById("Modalcontainer");
+        document.querySelector(".close").addEventListener("click", () => {
+            modalcontainer.style.visibility = `hidden`;
+            console.log("hidden")
+        })
+        document.querySelector(".replay").addEventListener("click", () => {
+            location.reload();
+        })
+
+
+// console.log(d);
+
+// ballspeed=d;
+    </script>
 </body>
 
 </html>

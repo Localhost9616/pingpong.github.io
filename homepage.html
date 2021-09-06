@@ -254,8 +254,8 @@
             <div class="textbox">
                 <div class="close">&times;</div>
                 <h1>Congratulation</h1>
-                <p>Player 1 won the game</p>
-                <p>Score = x</p>
+                <p id="winner">Player 1 won the game</p>
+                <p id="score">Score = x</p>
                 <p class="p3">Hit Enter Key to play again</p>
             </div>
             <div class="buttonbox">
@@ -352,6 +352,8 @@
                 if (countright == 3) {
                     // alert("Player 1 is Winner");
                     ballspeed = 0;
+                    document.getElementById("winner").innerHTML="Player 1 won the game";
+                    document.getElementById("score").innerHTML=`Score = ${leftpoints}`; 
                     modalcontainer.style.visibility = "visible";
                     document.addEventListener("keydown", (e) => {
                         if (e.key == `Enter`) {
@@ -373,6 +375,8 @@
                 if (countleft == 0) {
                     // alert("Player 2 is Winner");
                     ballspeed = 0;
+                    document.getElementById("winner").innerHTML="Player 2 won the game"
+                    document.getElementById("score").innerHTML=`Score = ${rightpoints}`;
                     modalcontainer.style.visibility = "visible";
                     document.addEventListener("keydown", (e) => {
                         if (e.key == `Enter`) {

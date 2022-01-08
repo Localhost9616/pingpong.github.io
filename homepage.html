@@ -294,9 +294,7 @@
         let countright = 6;
         let countleft = 3;
         var d = localStorage.getItem("myvalue");
-        if(d=="null"){
-             d='5';
-        }
+        
         let ballspeed = parseInt(d);
         let leftpoints = 0;
         let rightpoints = 0;
@@ -325,7 +323,9 @@
             // ball.style.top = balltop + 1 + "px";
             // ball.style.left = ballleft + 1 + "px";
 
-           
+           if(! ballspeed){
+               ballspeed=5;
+           }
             
             if (ballbottom >= boardbottom) {
                 y = !y;
